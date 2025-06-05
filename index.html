@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/JalanPansela_1.js"></script>
+        <script src="data/JalanProvinsi_2.js"></script>
+        <script src="data/Jalan_Nasional_3.js"></script>
+        <script src="data/JalanTol_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-8.732843054020595,110.86834269920053],[-6.459758014514671,114.50889092932863]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        function pop_JalanPansela_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nama Ruas</th>\
+                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Status</th>\
+                        <td>' + (feature.properties['FolderPath'] !== null ? autolinker.link(feature.properties['FolderPath'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_JalanPansela_1_0() {
+            return {
+                pane: 'pane_JalanPansela_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        function style_JalanPansela_1_1() {
+            return {
+                pane: 'pane_JalanPansela_1',
+                opacity: 1,
+                color: 'rgba(255,96,17,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_JalanPansela_1');
+        map.getPane('pane_JalanPansela_1').style.zIndex = 401;
+        map.getPane('pane_JalanPansela_1').style['mix-blend-mode'] = 'normal';
+        var layer_JalanPansela_1 = new L.geoJson.multiStyle(json_JalanPansela_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_JalanPansela_1',
+            layerName: 'layer_JalanPansela_1',
+            pane: 'pane_JalanPansela_1',
+            onEachFeature: pop_JalanPansela_1,
+            styles: [style_JalanPansela_1_0,style_JalanPansela_1_1,]
+        });
+        bounds_group.addLayer(layer_JalanPansela_1);
+        map.addLayer(layer_JalanPansela_1);
+        function pop_JalanProvinsi_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nama Ruas</th>\
+                        <td>' + (feature.properties['Nm_Ruas'] !== null ? autolinker.link(feature.properties['Nm_Ruas'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Status Jalan</th>\
+                        <td>' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nomor Ruas</th>\
+                        <td>' + (feature.properties['Kd_Inf'] !== null ? autolinker.link(feature.properties['Kd_Inf'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tahun Data</th>\
+                        <td>' + (feature.properties['Thn_Data'] !== null ? autolinker.link(feature.properties['Thn_Data'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fungsi Jalan</th>\
+                        <td>' + (feature.properties['Fungsi'] !== null ? autolinker.link(feature.properties['Fungsi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Koridor</th>\
+                        <td>' + (feature.properties['Ura_Dukung'] !== null ? autolinker.link(feature.properties['Ura_Dukung'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Propinsi</th>\
+                        <td>' + (feature.properties['Propinsi'] !== null ? autolinker.link(feature.properties['Propinsi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kabupaten/Kota</th>\
+                        <td>' + (feature.properties['Kab_Kot'] !== null ? autolinker.link(feature.properties['Kab_Kot'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Penanda Awal Ruas</th>\
+                        <td>' + (feature.properties['Tk_Ruas_Aw'] !== null ? autolinker.link(feature.properties['Tk_Ruas_Aw'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Penanda Akhir Ruas</th>\
+                        <td>' + (feature.properties['Tk_Ruas_Ak'] !== null ? autolinker.link(feature.properties['Tk_Ruas_Ak'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Panjang Jalan (SK)</th>\
+                        <td>' + (feature.properties['Panjang'] !== null ? autolinker.link(feature.properties['Panjang'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_JalanProvinsi_2_0() {
+            return {
+                pane: 'pane_JalanProvinsi_2',
+                opacity: 1,
+                color: 'rgba(33,26,242,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_JalanProvinsi_2');
+        map.getPane('pane_JalanProvinsi_2').style.zIndex = 402;
+        map.getPane('pane_JalanProvinsi_2').style['mix-blend-mode'] = 'normal';
+        var layer_JalanProvinsi_2 = new L.geoJson(json_JalanProvinsi_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_JalanProvinsi_2',
+            layerName: 'layer_JalanProvinsi_2',
+            pane: 'pane_JalanProvinsi_2',
+            onEachFeature: pop_JalanProvinsi_2,
+            style: style_JalanProvinsi_2_0,
+        });
+        bounds_group.addLayer(layer_JalanProvinsi_2);
+        map.addLayer(layer_JalanProvinsi_2);
+        function pop_Jalan_Nasional_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nomor Ruas</th>\
+                        <td>' + (feature.properties['LINKID'] !== null ? autolinker.link(feature.properties['LINKID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama Ruas</th>\
+                        <td>' + (feature.properties['NAMA_RUAS'] !== null ? autolinker.link(feature.properties['NAMA_RUAS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Panjang Jalan (SK)</th>\
+                        <td>' + (feature.properties['PANJANG_SK'] !== null ? autolinker.link(feature.properties['PANJANG_SK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Penanda Awal Ruas</th>\
+                        <td>' + (feature.properties['PENGENAL_A'] !== null ? autolinker.link(feature.properties['PENGENAL_A'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PENGENAL_1'] !== null ? autolinker.link(feature.properties['PENGENAL_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KAB_KOTA'] !== null ? autolinker.link(feature.properties['KAB_KOTA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Jalan_Nasional_3_0() {
+            return {
+                pane: 'pane_Jalan_Nasional_3',
+                opacity: 1,
+                color: 'rgba(237,24,45,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Jalan_Nasional_3');
+        map.getPane('pane_Jalan_Nasional_3').style.zIndex = 403;
+        map.getPane('pane_Jalan_Nasional_3').style['mix-blend-mode'] = 'normal';
+        var layer_Jalan_Nasional_3 = new L.geoJson(json_Jalan_Nasional_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Jalan_Nasional_3',
+            layerName: 'layer_Jalan_Nasional_3',
+            pane: 'pane_Jalan_Nasional_3',
+            onEachFeature: pop_Jalan_Nasional_3,
+            style: style_Jalan_Nasional_3_0,
+        });
+        bounds_group.addLayer(layer_Jalan_Nasional_3);
+        map.addLayer(layer_Jalan_Nasional_3);
+        function pop_JalanTol_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nama Ruas</th>\
+                        <td>' + (feature.properties['NAMA'] !== null ? autolinker.link(feature.properties['NAMA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Panjang</th>\
+                        <td>' + (feature.properties['PANJANG'] !== null ? autolinker.link(feature.properties['PANJANG'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Pengelola</th>\
+                        <td>' + (feature.properties['PENGELOLA'] !== null ? autolinker.link(feature.properties['PENGELOLA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Status</th>\
+                        <td>' + (feature.properties['STATUS'] !== null ? autolinker.link(feature.properties['STATUS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_JalanTol_4_0() {
+            return {
+                pane: 'pane_JalanTol_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        function style_JalanTol_4_1() {
+            return {
+                pane: 'pane_JalanTol_4',
+                opacity: 1,
+                color: 'rgba(252,244,10,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_JalanTol_4');
+        map.getPane('pane_JalanTol_4').style.zIndex = 404;
+        map.getPane('pane_JalanTol_4').style['mix-blend-mode'] = 'normal';
+        var layer_JalanTol_4 = new L.geoJson.multiStyle(json_JalanTol_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_JalanTol_4',
+            layerName: 'layer_JalanTol_4',
+            pane: 'pane_JalanTol_4',
+            onEachFeature: pop_JalanTol_4,
+            styles: [style_JalanTol_4_0,style_JalanTol_4_1,]
+        });
+        bounds_group.addLayer(layer_JalanTol_4);
+        map.addLayer(layer_JalanTol_4);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/JalanTol_4.png" /> Jalan Tol': layer_JalanTol_4,'<img src="legend/Jalan_Nasional_3.png" /> Jalan_Nasional': layer_Jalan_Nasional_3,'<img src="legend/JalanProvinsi_2.png" /> Jalan Provinsi': layer_JalanProvinsi_2,'<img src="legend/JalanPansela_1.png" /> Jalan Pansela': layer_JalanPansela_1,"Google Satellite": layer_GoogleSatellite_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
